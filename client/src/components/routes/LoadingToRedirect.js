@@ -10,7 +10,7 @@ const LoadingToRedirect = () =>{
             setCount((currentCount) => --currentCount)
         },1000)
         //redirect once count equal to zero 
-        count  === 0  && history('/')
+        count  === 0  && history('/login')
         //cleanup
         return () => clearInterval(interval)
     },[count])

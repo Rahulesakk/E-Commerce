@@ -5,6 +5,7 @@ import {
   SettingOutlined,
   UserOutlined,
   UserAddOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import * as firebase from "firebase/app";
@@ -70,17 +71,27 @@ function Header() {
       {user && (
         <Menu.SubMenu
           key="SubMenu"
-          title={user.email && user.email.split('@')[0]}
+          title={user.email && user.email.split("@")[0]}
           icon={<SettingOutlined />}
           className="float-right"
         >
-          <Menu.Item key="two" icon={<AppstoreOutlined />}>
+          {/* <Menu.Item key="two" icon={<AppstoreOutlined />}>
             Navigation Two
           </Menu.Item>
           <Menu.Item key="three" icon={<AppstoreOutlined />}>
             Navigation Three
-          </Menu.Item>
-          <Menu.Item icon={<UserOutlined />} onClick={logout}>
+          </Menu.Item> */}
+          {user && user.role === "subscriber" && (
+            <Menu.Item>
+              <Link to="/user/history">Dashboard</Link>
+            </Menu.Item>
+          )}
+          {user && user.role === "admin" && (
+            <Menu.Item>
+              <Link to="/admin/dashboard">Dashboard</Link>
+            </Menu.Item>
+          )}
+          <Menu.Item icon={<LogoutOutlined />} onClick={logout}>
             LOGOUT
           </Menu.Item>
         </Menu.SubMenu>

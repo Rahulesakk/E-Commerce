@@ -11,7 +11,14 @@ import Header from './components/nav/Header'
 import RegisterCompelete from './Pages/Auth/RegisterComplete'
 import ForgotPassword from './Pages/Auth/FogoatPassword'
 import History  from './Pages/users/History';
+import Password from './Pages/users/Password';
+import Whilist from './Pages/users/Whilist';
+import AdminDashboard from "./Pages/admin/AdminDashboard";
+
+
 import UserRoute from './components/routes/UserRoute';
+import AdminRoutes from "./components/routes/AdminRoutes";
+
 
 import {auth} from './firebase';
 import {useDispatch} from 'react-redux';
@@ -59,7 +66,14 @@ useEffect(()=>{
           element={<RegisterCompelete />}
         />
         <Route exact path="/forgot/password" element={<ForgotPassword />} />
-        <Route exact path="/user/history/*" element={<UserRoute />} />
+        <Route element={<UserRoute />}>
+          <Route exact path="/user/history/" element={<History />} />
+          <Route exact path="/user/password/" element={<Password />} />
+          <Route exact path="/user/wishlist/" element={<Whilist />} />
+        </Route>
+        <Route element={<AdminRoutes />}>
+          <Route exact path="/admin/dashboard" element={< AdminDashboard/>} />
+        </Route>
       </Routes>
     </>
   );
