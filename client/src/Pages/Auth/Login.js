@@ -11,9 +11,10 @@ import { signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import axios from "axios";
 // import firebase from "firebase"
 
+
 const createOrUpdate = async(authtoken) =>{
   return await axios.post(
-    `${process.env.REACT_APP_API}/create-or-update-user`,
+    `http://localhost:5000/api/create-or-update-user`,
     {},
     {
       headers: {
@@ -26,9 +27,21 @@ const createOrUpdate = async(authtoken) =>{
 function Login() {
   const dispatch = useDispatch();
   const history = useNavigate();
+
+ 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+  const roleBasedRedirect = async(res) => {
+    if(res.data.role === 'admin'){
+      history('/admin/dashboard')
+    }else{
+      history("/user/history")
+    }
+  }
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -47,9 +60,10 @@ function Login() {
             token: getIdTokenResult.token,
             role:res.data.role,
             _id: res.data._id,
-          },
+          }, 
         });
-        history("/");
+        roleBasedRedirect(res)
+        // history("/");
       })
       .catch((err)=>{
         console.log(err)
@@ -80,8 +94,10 @@ function Login() {
               _id: res.data._id,
             },
           });
+          roleBasedRedirect(res)
         });
-        history("/");
+        // .catch
+        // history("/");
       })
       .catch((err) => {
         console.log(err);
