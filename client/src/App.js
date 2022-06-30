@@ -14,6 +14,8 @@ import History  from './Pages/users/History';
 import Password from './Pages/users/Password';
 import Whilist from './Pages/users/Whilist';
 import AdminDashboard from "./Pages/admin/AdminDashboard";
+import CategoryCreate from "./Pages/admin/category/CategoryCreate";
+import CategoryUpdate from "./Pages/admin/category/CategoryUpdate";
 
 
 import UserRoute from './components/routes/UserRoute';
@@ -72,7 +74,13 @@ useEffect(()=>{
           <Route exact path="/user/wishlist/" element={<Whilist />} />
         </Route>
         <Route element={<AdminRoutes />}>
-          <Route exact path="/admin/dashboard" element={< AdminDashboard/>} />
+          <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route exact path="/admin/category" element={<CategoryCreate />} />
+          <Route
+            exact
+            path="/admin/category/:slug"
+            element={<CategoryUpdate />}
+          />
         </Route>
       </Routes>
     </>
