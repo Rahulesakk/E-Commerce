@@ -14,7 +14,7 @@ import axios from "axios";
 
 const createOrUpdate = async(authtoken) =>{
   return await axios.post(
-    `http://localhost:8000/api/create-or-update-user`,
+    `http://localhost:5000/api/create-or-update-user`,
     {},
     {
       headers: {
