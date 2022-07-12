@@ -6,7 +6,7 @@ import {
 } from "../../../functions/categories";
 import {
   createSub,
-  getSub,
+  getSub,getSubs,
   removeSub,
 } from "../../../functions/sub";
 import { useSelector } from "react-redux";
@@ -22,13 +22,18 @@ function SubCreate() {
   const [category, setCategory] = useState("");
 
   const [keyword, setKeyword] = useState("");
+  const [subs,setSubs] = useState([]);
 
   useEffect(() => {
     loadCategories();
+    loadSubs();
   }, []);
 
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
+
+  const loadSubs = () =>
+    getSubs().then((s) => setSubs(s.data));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +44,7 @@ function SubCreate() {
         setLoading(false);
         setName("");
         toast.success(`${res.data.name} is created`);
+        loadSubs();
       })
       .catch((err) => {
         console.log(err);
@@ -54,6 +60,7 @@ function SubCreate() {
         .then((res) => {
           setLoading(false);
           toast.success(`${res.data.name} Deleted`);
+          loadSubs();
         })
         .catch((err) => {
           setLoading(false);
@@ -111,8 +118,8 @@ function SubCreate() {
 
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />
           <hr />
-          {/* {step 5}
-          {categories.filter(searched(keyword)).map((c) => (
+           {/* {step 5} */}
+           {subs.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}
               <span
@@ -127,7 +134,7 @@ function SubCreate() {
                 </span>
               </Link>
             </div>
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

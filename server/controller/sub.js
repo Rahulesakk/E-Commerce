@@ -22,9 +22,9 @@ exports.read = async(req, res, next) => {
   res.json(sub)
 };
 exports.update = async(req, res, next) => {
-    const {name} = req.body
+    const {name,parent} = req.body
     try{
-        const updated = await Sub.findOneAndUpdate({slug:req.params.slug},{name:name,slug:slugify(name)},{new:true})
+        const updated = await Sub.findOneAndUpdate({slug:req.params.slug},{name:name,parent:parent,slug:slugify(name)},{new:true})
         res.json(updated)
     }catch(err){
         res.status(400).send("Sub update failed");

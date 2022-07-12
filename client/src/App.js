@@ -17,6 +17,8 @@ import AdminDashboard from "./Pages/admin/AdminDashboard";
 import CategoryCreate from "./Pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./Pages/admin/category/CategoryUpdate";
 import SubCreate from "./Pages/admin/sub/SubCreate";
+import SubUpdate from "./Pages/admin/sub/SubUpdate";
+import ProductCreate from "./Pages/admin/product/ProductCreate";
 
 
 import UserRoute from './components/routes/UserRoute';
@@ -78,7 +80,13 @@ useEffect(()=>{
           <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
           <Route exact path="/admin/category" element={<CategoryCreate />} />
           <Route exact path="/admin/sub" element={<SubCreate />} />
-          
+          <Route exact path="/admin/product" element={<ProductCreate />} />
+          <Route
+            exact
+            path="/admin/sub/:slug"
+            element={<SubUpdate />}
+          />
+         
           <Route
             exact
             path="/admin/category/:slug"
