@@ -14,3 +14,8 @@ exports.create = async(req,res) =>{
         res.status(400).send('Product category Failed')
     }
 }
+
+exports.read = async(req,res) =>{
+   let products = await Product.find({});
+   res.json(products);
+}
