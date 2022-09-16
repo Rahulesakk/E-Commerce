@@ -65,14 +65,18 @@ const ProductCreate = () => {
 
 
   const handlecategoryChange = (e) =>{
-    e.preventDefault();
-    console.log("Button clicked",e.target.value);
-    console.log({...values},"fghfgfhfghhdfghdf")
-    setValues({ ...values, subs:[],category: e.target.value },"aaaaaaaaaaaaaaaaa");
+    // e.preventDefault();
+    // console.log("Button clicked",e.target.value);
+    // console.log({...values},"fghfgfhfghhdfghdf")
+    // setValues({ ...values, subs:[],category: e.target.value },"aaaaaaaaaaaaaaaaa");
+        // setValues({ ...values, subs: [], category: e.target.value });
     getCategorySubs(e.target.value)
     .then(res=>{
-      console.log(res);
+
+
       setSubOptions(res.data);
+        setValues({ ...values, subs: [], category: e.target.value });
+        console.log("new select",res.data);
     })
     SetShowSub(true)
   }

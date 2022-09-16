@@ -14,11 +14,11 @@ import axios from "axios";
 
 const createOrUpdate = async(authtoken) =>{
   return await axios.post(
-    `http://localhost:5000/api/create-or-update-user`,
+    `${process.env.REACT_APP_API}/create-or-update-user`,
     {},
     {
       headers: {
-         authtoken,
+        authtoken,
       },
     }
   );
