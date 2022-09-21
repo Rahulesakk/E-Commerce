@@ -19,6 +19,8 @@ import CategoryUpdate from "./Pages/admin/category/CategoryUpdate";
 import SubCreate from "./Pages/admin/sub/SubCreate";
 import SubUpdate from "./Pages/admin/sub/SubUpdate";
 import ProductCreate from "./Pages/admin/product/ProductCreate";
+import AllProduct from "./Pages/admin/product/AllProduct";
+import ProductUpdate from "./Pages/admin/product/ProductUpdate";
 
 
 import UserRoute from './components/routes/UserRoute';
@@ -81,6 +83,8 @@ useEffect(()=>{
           <Route exact path="/admin/category" element={<CategoryCreate />} />
           <Route exact path="/admin/sub" element={<SubCreate />} />
           <Route exact path="/admin/product" element={<ProductCreate />} />
+          <Route exact path="/admin/products" element={<AllProduct />} />
+          <Route exact path="/admin/products/:slug" element={<ProductUpdate />} />
           <Route
             exact
             path="/admin/sub/:slug"
