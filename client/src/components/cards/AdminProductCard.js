@@ -10,7 +10,7 @@ const { Meta } = Card;
 const AdminProductCard = ({ product,handleRemove }) => {
     const { title, description, images,slug } = product;
     return <Card
-        cover={<img src={images && images.length ? images[0].url : laptop} style={{ height: "150px", objectFit: "cover" }}
+        cover={<img src={images && images.length ? images[0].url : laptop} style={{ height: "150px", objectFit: "cover",width:"90%" }}
             className="m-2" />}
         actions={
             [

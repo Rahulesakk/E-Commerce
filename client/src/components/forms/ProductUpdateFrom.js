@@ -1,23 +1,25 @@
-import React , {useState} from 'react'
-import {Select} from  "antd"
-const  {Option} = Select;
+import React, { useState } from "react";
+import { Select } from "antd";
+const { Option } = Select;
 
-
-function ProductCreateFrom({
+function ProductUpdateFrom({
   handleSubmit,
   handleChange,
   values,
   setValues,
+  categor,
   handlecategoryChange,
   subOptions,
-  showSub,
+  arrayOfSubs,
+  setArrayOfSubs,
+  // showSub,
 }) {
   // destructure
   const {
     title,
     description,
     price,
-    categories,
+    // categories,
     category,
     subs,
     shipping,
@@ -37,6 +39,7 @@ function ProductCreateFrom({
 
   const test2 = (event) => {
     handlecategoryChange(event);
+    console.log(event.target,"kkkkkkkkkkkkkkkkk")
     setValues({ ...values, subs: [] });
   };
   return (
@@ -77,10 +80,10 @@ function ProductCreateFrom({
       <div className="form-group">
         <label>Shipping</label>
         <select
-          value={shipping === "Yes" ? "yes" : "No"}
           name="shipping"
           className="form-control"
           onChange={handleChange}
+          value={shipping === "Yes" ? "Yes" : "No"}
         >
           <option value="No">No</option>
           <option value="Yes">Yes</option>
@@ -106,6 +109,7 @@ function ProductCreateFrom({
           className="form-control"
           onChange={handleChange}
         >
+          <option>Please select</option>
           {colors.map((c) => (
             <option key={c} value={c}>
               {c}
@@ -122,6 +126,7 @@ function ProductCreateFrom({
           className="form-control"
           onChange={handleChange}
         >
+          <option>Please select</option>
           {brands.map((b) => (
             <option key={b} value={b}>
               {b}
@@ -129,16 +134,18 @@ function ProductCreateFrom({
           ))}
         </select>
       </div>
+      {/* {JSON.stringify(categor)} */}
       <div className="form-group">
         <label>Category</label>
         <select
           name="category"
           className="form-control"
           onChange={(e) => test2(e)}
+          value={category}
         >
-          <option>Please Select</option>
-          {categories &&
-            categories.map((c) => (
+          {/* <option>{category ? category.name : "Please Select"}</option> */}
+          {categor.length > 0 &&
+            categor.map((c) => (
               <option key={c._id} value={c._id}>
                 {c.name}
               </option>
@@ -156,30 +163,32 @@ function ProductCreateFrom({
                 </Select>
             </div> )  } */}
 
-      {showSub && (
-        <div>
-          <label>Sub Category</label>
-          <Select
-            mode="multiple"
-            style={{ width: "100%" }}
-            placeholder="Please Select"
-            name="subs"
-            onChange={(value) => test(value)}
-            value={subs}
-          >
-            {subOptions.length &&
-              subOptions.map((s) => (
-                <Option value={s._id} key={s._id}>
-                  {s.name}
-                </Option>
-              ))}
-          </Select>
-        </div>
-      )}
+      {/* {showSub && ( */}
+      {/* {JSON.stringify(arrayOfSubs)} */}
+      <div>
+        <label>Sub Category</label>
+        <Select
+          mode="multiple"
+          style={{ width: "100%" }}
+          placeholder="Please Select"
+          name="subs"
+          value={arrayOfSubs}
+          onChange={(value) => setArrayOfSubs(value)}
+          // value={subs}
+        >
+          {subOptions.length &&
+            subOptions.map((s) => (
+              <Option value={s._id} key={s._id}>
+                {s.name}
+              </Option>
+            ))}
+        </Select>
+      </div>
+
       <br />
       <button className="btn btn-outline-info">Save</button>
     </form>
   );
 }
 
-export default ProductCreateFrom
+export default ProductUpdateFrom;
