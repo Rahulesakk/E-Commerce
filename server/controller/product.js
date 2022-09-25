@@ -44,3 +44,21 @@ exports.read = async (req,res) => {
     .exec();
     res.json(data);
 }
+exports.update = async (req,res)=>{
+    try{
+        if(req.body.title){
+            req.body.slug = slugify(req.body.title)
+
+        }
+        const update = await Product.findOneAndUpdate({slug:req.params.slug},
+            req.body,
+            {new:true})
+            .exec();
+
+        res.send(update)
+    }
+    catch(err){
+        console.log("Product Update failed ---->",err)
+        return res.status(400).send("Product update failed")
+    }
+}
