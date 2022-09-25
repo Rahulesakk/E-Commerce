@@ -2,7 +2,7 @@ import React from 'react'
 import Resizer from "react-image-file-resizer";
 import axios from 'axios';
 import { useSelector } from "react-redux";
-import { Avatar,Badge } from "antd"
+import { Avatar, Badge } from "antd"
 
 function FileUpload({ values, setValues, setLoading }) {
 
@@ -39,44 +39,50 @@ function FileUpload({ values, setValues, setLoading }) {
     }
   }
 
-  const handleImageRemove = (public_id) =>{
+  const handleImageRemove = (public_id) => {
     setLoading(true)
-    console.log("remove image",public_id)
-    axios.post(`${process.env.REACT_APP_API}/removeimage`,{public_id},{
-      headers:{
-        authtoken:user?user.token:"",
+    console.log("remove image", public_id)
+    axios.post(`${process.env.REACT_APP_API}/removeimage`, { public_id }, {
+      headers: {
+        authtoken: user ? user.token : "",
       }
     })
-    .then(res=>{
-      setLoading(false)
-      const {images} = values;
-      let filteredImages = images.filter((item)=>{
-        return item.public_id !== public_id
+      .then(res => {
+        setLoading(false)
+        const { images } = values;
+        let filteredImages = images.filter((item) => {
+          return item.public_id !== public_id
+        })
+        setValues({ ...values, images: filteredImages });
       })
-      setValues({...values,images:filteredImages});
-    })
-    .catch(err=>{
-      console.log(err);
-      setLoading(false);
-    })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      })
   }
 
   return (
     <>
-      <div className='row'>
-        {values.images && values.images.map((image) => {
-          <Badge count="X" onClick={()=>handleImageRemove(image.public_id)} style={{cursor:"pointer"}}>
-            <Avatar key={image.public_id} src={image.url} size={100} shape="square" className="ml-3" />
-          </Badge>
-          {JSON.stringify(values.images)}
-          <img
-        src="https://res.cloudinary.com/tech-active/image/upload/v1662894811/bosqvmwvm7oj1jekbe9t.jpg"
-        alt="car"
-      />
-        })}
+      <div className="row">
+        {values.images &&
+          values.images.map((image) => (
+            <Badge
+              count="X"
+              key={image.public_id}
+              onClick={() => handleImageRemove(image.public_id)}
+              style={{ cursor: "pointer" }}
+            >
+              <Avatar
+                src={image.url}
+                size={100}
+                shape="square"
+                className="ml-3"
+              />
+            </Badge>
+          ))}
       </div>
       <div className='row'>
-        <label className='btn btn-primary'>Choose File
+        <label className='btn btn-primary  mt-3'>Choose File
           <input type="file" multiple hidden accept="images/*" onChange={fileUploadAndResize} />
         </label>
       </div>

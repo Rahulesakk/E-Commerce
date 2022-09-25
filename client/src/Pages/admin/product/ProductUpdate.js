@@ -8,6 +8,7 @@ import {
   getCategories,getCategorySubs,
 } from "../../../functions/categories";
 import  FileUpload   from "../../../components/forms/FileUpload"
+import { LoadingOutlined } from "@ant-design/icons";
 
 import {useParams} from 'react-router-dom'
 
@@ -35,6 +36,8 @@ const ProductUpdate = () => {
     const [categor, setCategories] = useState([]);
     const [subOptions, setSubOptions] = useState(false);
     const [arrayOfSubs,setArrayOfSubs] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [loading, setLoading] = useState(false);
   
     const { slug } = useParams();
   // redux
@@ -81,13 +84,14 @@ const ProductUpdate = () => {
    };
    const handlecategoryChange = (e) => {
      e.preventDefault();
-     console.log("Button clicked",e.target.value);
-     console.log({...values},"fghfgfhfghhdfghdf")
-     setValues({ ...values, subs:[],category: e.target.value },"aaaaaaaaaaaaaaaaa");
-     setValues({ ...values, subs: [], category: e.target.value });
+    //  console.log("Button clicked",e.target.value);
+    //  console.log({...values},"fghfgfhfghhdfghdf")
+    //  setValues({ ...values, subs:[]},"aaaaaaaaaaaaaaaaa");
+     setValues({ ...values, subs: []});
+     setSelectedCategory(e.target.value);
      getCategorySubs(e.target.value).then((res) => {
        setSubOptions(res.data);
-       setValues({ ...values, subs: [], category: e.target.value });
+       setValues({ ...values, subs: []});
        console.log("new select", res.data);
      });
 
@@ -105,9 +109,22 @@ const ProductUpdate = () => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h4>Product Update</h4>
+        {loading ? (
+            <LoadingOutlined className="text-danger h1" />
+          ) : (
+            <h4>Product update</h4>
+          )}
           <hr />
-          {JSON.stringify(values)}
+          {/* {JSON.stringify(values)} */}
+
+          <div className="p-3">
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </div>
+
           <ProductUpdateFrom
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -118,6 +135,7 @@ const ProductUpdate = () => {
             subOptions={subOptions}
             arrayOfSubs={arrayOfSubs}
             setArrayOfSubs={setArrayOfSubs}
+            selectedCategory = {selectedCategory}
             // showSub={showSub}
           />
         </div>

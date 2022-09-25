@@ -12,6 +12,7 @@ function ProductUpdateFrom({
   subOptions,
   arrayOfSubs,
   setArrayOfSubs,
+  selectedCategory,
   // showSub,
 }) {
   // destructure
@@ -141,7 +142,7 @@ function ProductUpdateFrom({
           name="category"
           className="form-control"
           onChange={(e) => test2(e)}
-          value={category}
+          value={selectedCategory ? selectedCategory : category._id}
         >
           {/* <option>{category ? category.name : "Please Select"}</option> */}
           {categor.length > 0 &&
