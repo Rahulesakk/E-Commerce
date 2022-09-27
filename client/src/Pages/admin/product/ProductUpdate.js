@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { ProductRead } from "../../../functions/product";
+import { ProductRead,updateproduct } from "../../../functions/product";
 import ProductUpdateFrom from "../../../components/forms/ProductUpdateFrom";
 import {
   getCategories,getCategorySubs,
@@ -11,6 +11,7 @@ import  FileUpload   from "../../../components/forms/FileUpload"
 import { LoadingOutlined } from "@ant-design/icons";
 
 import {useParams} from 'react-router-dom'
+import { useNavigate, Link} from "react-router-dom";
 
 const initialState = {
     title: "",
@@ -40,7 +41,9 @@ const ProductUpdate = () => {
     const [loading, setLoading] = useState(false);
   
     const { slug } = useParams();
+     const history = useNavigate();
   // redux
+    // const 
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -76,7 +79,20 @@ const ProductUpdate = () => {
 
    const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log(e);
+    values.subs = arrayOfSubs;
+    values.category = selectedCategory ? selectedCategory : values.category;
+
+    updateproduct(slug, values, user.token)
+      .then((res) => {
+        setLoading(false);
+        toast.success(`"${res.data.title}" is updated`);
+        history.push("/admin/products");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        toast.error(err.response.data.err);
+      });
    }
    const handleChange = (e) => {
      setValues({ ...values, [e.target.name]: e.target.value });
