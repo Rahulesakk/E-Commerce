@@ -62,3 +62,49 @@ exports.update = async (req,res)=>{
         return res.status(400).send("Product update failed")
     }
 }
+//without pagination
+// exports.list = async (req,res) => {
+//     try{
+//         const {sort,limit,order} = req.body;
+//         const data = await Product.find({})
+//         .populate('category')
+//         .populate('subs')
+//         .sort([[sort,order]])
+//         .limit(limit)
+//         .exec()
+//         res.json(data);
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
+//with pagination
+exports.list = async (req,res) => {
+    try{
+        const {sort,order,page} = req.body;
+        const perpage = 3;
+        const currentpage = page||1
+        const data = await Product.find({})
+        .skip((currentpage-1)*perpage)
+        .populate('category')
+        .populate('subs')
+        .sort([[sort,order]])
+        .limit(perpage)
+        .exec()
+        res.json(data);
+    }catch(err){
+        console.log(err)
+    }
+}
+
+exports.productscount = async (req, res) => {
+    try{
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        const count = await Product.find({}).count();
+        console.log(res.json(count),"sdafasdadadadadddasda")
+        res.json(count);
+    }
+    catch(err){
+            console.log(err)
+        }
+   
+}
