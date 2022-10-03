@@ -21,7 +21,7 @@ function NewArraival() {
 
   const loadallproducts = () =>{
     setLoading(true);
-    getproduct('createdAt','desc',3)
+    getproduct('createdAt','desc',page)
     .then((res)=>{  
       setLoading(false);
       setProducts(res.data);
@@ -33,7 +33,7 @@ function NewArraival() {
 
   return (
     <>
-      {productsCount}
+      {/* {productsCount} */}
       <div className='container'>
         
          {loading ? (
@@ -48,7 +48,13 @@ function NewArraival() {
           </div>
         )}
       </div>
-      <Pagination current={page} total={(productsCount/3)*10} onChange={(value)=>setPage(value)}/>
+      <div className='row'>
+        <nav className='col-md-4 offset-md-4 text-center pt-5 p-3'>
+              <Pagination current={page} total={Math.round(productsCount/3)*10} onChange={(value)=>setPage(value)}/>
+        </nav>
+
+      </div>
+      
     </>
   )
 }

@@ -14,7 +14,7 @@ function ProductCard({product}) {
             className="m-2" />}
         actions={
             [
-                <Link to={`${slug}`}>
+                <Link to={`product/${slug}`}>
                      <EyeOutlined className='text-warning' /><br /> View Product
                 </Link>,
                 <>

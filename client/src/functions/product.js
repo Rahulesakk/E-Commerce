@@ -32,9 +32,9 @@ export const updateproduct = async (slug,product,authtoken) => {
     })
 }
 
-export const getproduct = async(sort,order,limit) =>{
+export const getproduct = async(sort,order,page) =>{
     return axios.post(`${process.env.REACT_APP_API}/product`,{
-        sort,order,limit,
+        sort,order,page,
     },)
 }
 

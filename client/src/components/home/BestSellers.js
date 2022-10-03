@@ -1,20 +1,26 @@
 import React,{useState,useEffect} from 'react'
-import {getProductByCount,getproduct} from '../../functions/product'
+import {getProductByCount,getproduct,productCount} from '../../functions/product'
 import ProductCard from '../cards/ProductCard';
 import Jumbotoron from '../cards/Jumbotoron';
 import LoadingCard from "../cards/LoadingCard";
+import {Pagination} from "antd";
 
 function BestSellers() {
   const [products,setProducts] = useState([]);
   const [loading,setLoading] = useState(false);
+  const [productsCount,setproductsCount] = useState(0);
+  const [page,setPage] = useState(1);
 
   useEffect(() => {
     loadallproducts()
+  },[page]);
+  useEffect(() =>{
+    productCount().then((res)=>setproductsCount(res.data))
   },[]);
 
   const loadallproducts = () =>{
     setLoading(true);
-    getproduct('createdAt','desc',3)
+    getproduct('createdAt','desc',page)
     .then((res)=>{  
       setLoading(false);
       setProducts(res.data);
@@ -26,7 +32,7 @@ function BestSellers() {
 
   return (
     <>
-      
+      {/* {productsCount} */}
       <div className='container'>
         
          {loading ? (
@@ -40,6 +46,12 @@ function BestSellers() {
             ))}
           </div>
         )}
+      </div>
+       <div className='row'>
+        <nav className='col-md-4 offset-md-4 text-center pt-5 p-3'>
+              <Pagination current={page} total={Math.round(productsCount/3)*10} onChange={(value)=>setPage(value)}/>
+        </nav>
+
       </div>
     </>
   )
