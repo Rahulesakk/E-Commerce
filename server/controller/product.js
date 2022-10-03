@@ -79,6 +79,7 @@ exports.update = async (req,res)=>{
 // }
 //with pagination
 exports.list = async (req,res) => {
+    console.table(req.body)
     try{
         const {sort,order,page} = req.body;
         const perpage = 3;
