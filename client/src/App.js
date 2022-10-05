@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Register from './Pages/Auth/Register'
 import Home from './Pages/Home'
+import Product from './Pages/Product'
 import Header from './components/nav/Header'
 import RegisterCompelete from './Pages/Auth/RegisterComplete'
 import ForgotPassword from './Pages/Auth/FogoatPassword'
@@ -95,6 +96,11 @@ useEffect(()=>{
             exact
             path="/admin/category/:slug"
             element={<CategoryUpdate />}
+          />
+           <Route
+            exact
+            path="/product/:slug"
+            element={<Product />}
           />
         </Route>
       </Routes>
