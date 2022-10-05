@@ -27,7 +27,7 @@ app.use(cors());
 
 //routes middleware
 fs.readdirSync('./routes').map((r)=>{
-    console.log('11111111111111111111111111111',r)
+    // console.log('11111111111111111111111111111',r)
     app.use("/api",require("./routes/"+ r))
 })
 //routes
