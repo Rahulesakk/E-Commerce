@@ -4,7 +4,7 @@ const router = express.Router();
 //middleware routes
 const { authCheck, adminCheck } = require("../middleware/auth");
 
-const {create,listall,remove,read,update,list,productscount,productStar} = require('../controller/product')
+const {create,listall,remove,read,update,list,productscount,productStar,relatedProductId} = require('../controller/product')
 
 router.post("/products", authCheck, adminCheck, create);
 router.get("/products/:count",  listall);
@@ -18,9 +18,9 @@ router.get("/getproducts/total",(req,res,next)=> {
     next();
 },productscount)
 
-// rating
 router.put("/product/star/:productId", authCheck, productStar);
 
+router.get("/product/related/:productId",relatedProductId)
 
 
 
