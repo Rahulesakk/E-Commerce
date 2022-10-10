@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate, Link} from "react-router-dom";
 import { signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import axios from "axios";
@@ -33,13 +33,29 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const {user} = useSelector((state)=>({...state}))
+
+  // useEffect(() => {
+  //   let intended = history.location.state;
+  //   if(intended){
+  //     return
+  //   }else{
+  //     if(user && user.token) history.push("/")
+  //   }
+  // }, [user,history])
 
   const roleBasedRedirect = async(res) => {
-    if(res.data.role === 'admin'){
-      history('/admin/dashboard')
-    }else{
-      history("/user/history")
-    }
+    // let intended = history.location.state;
+    // if(intended){
+    //   history(intended.from)
+    // }else{
+      if(res.data.role === 'admin'){
+        history('/admin/dashboard')
+      }else{
+        history("/user/history")
+      }
+    // }
+   
   }
 
   const handleSubmit = async (e) => {
