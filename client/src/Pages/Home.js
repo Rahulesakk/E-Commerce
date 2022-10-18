@@ -5,6 +5,8 @@ import Jumbotoron from '../components/cards/Jumbotoron';
 import LoadingCard from "../components/cards/LoadingCard";
 import NewArraival from "../components/home/NewArraival";
 import BestSellers from '../components/home/BestSellers';
+import CategoryList from '../components/category/CategoryList'
+import SubsList from '../components/sub/SubsList';
 
 function Home() {
   const [products,setProducts] = useState([]);
@@ -23,6 +25,11 @@ function Home() {
       <BestSellers/>
       <br/>
       <br/>
+      <h4 className='text-center p-3 mt-5 mb-5 jumbotron display-4'>Categories</h4>
+      <CategoryList/>
+       <h4 className='text-center p-3 mt-5 mb-5 jumbotron display-4'>Sub Categories</h4>
+      <SubsList/>
+      
     </>
   )
 }

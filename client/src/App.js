@@ -31,6 +31,8 @@ import AdminRoutes from "./components/routes/AdminRoutes";
 import {auth} from './firebase';
 import {useDispatch} from 'react-redux';
 import {currentUser} from "./functions/auuth"
+import CategoryHome from './Pages/category/CategoryHome';
+import SubHome from "./Pages/sub/SubHome"
 
 function App() {
 const dispatch = useDispatch();
@@ -78,6 +80,7 @@ useEffect(()=>{
           <Route exact path="/user/history/" element={<History />} />
           <Route exact path="/user/password/" element={<Password />} />
           <Route exact path="/user/wishlist/" element={<Whilist />} />
+         
         </Route>
         <Route element={<AdminRoutes />}>
           <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
@@ -97,12 +100,23 @@ useEffect(()=>{
             path="/admin/category/:slug"
             element={<CategoryUpdate />}
           />
-           <Route
+          
+        </Route>
+         <Route
             exact
             path="/product/:slug"
             element={<Product />}
           />
-        </Route>
+          <Route
+            exact
+            path="/category/:slug"
+            element={<CategoryHome />}
+          />
+          <Route
+            exact
+            path="/sub/:slug"
+            element={<SubHome />}
+          />
       </Routes>
     </>
   );
